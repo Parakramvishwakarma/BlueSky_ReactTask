@@ -36,21 +36,26 @@ API's Already Implemented
 ![](./documentation/mockups.png)
 
 ### Images
-![](./documentation/TaskList.png)
+Task List Retrieved from server.ts
+![](./documentation/TaskList.PNG)
 ### Add new Task
-![](./documentation/NewTask.png)
-![](./documentation/AddNewTask.png)
-![](./documentation/NewTaskAdded.png)
+Adding a new Task
+![](./documentation/NewTask.PNG)
+![](./documentation/AddNewTask.PNG)
+![](./documentation/NewTaskAdded.PNG)
 ### Update Task
-![](./documentation/UpdateTask.png)
-![](./documentation/UpdatingTask.png)
-![](./documentation/FinishedUpdatingTask.png)
-![](./documentation/ToggleCompleted.png)
+updating a task
+![](./documentation/UpdateTask.PNG)
+![](./documentation/UpdatingTask.PNG)
+![](./documentation/FinishedUpdatingTask.PNG)
+![](./documentation/ToggleCompleted.PNG)
 ### Delete Task
-![](./documentation/DeleteConfirmation.png)
-![](./documentation/TaskDeleted.png)
+Deleteing a task
+![](./documentation/DeleteConfirmation.PNG)
+![](./documentation/TaskDeleted.PNG)
 ### Filter Task
-![](./documentation/FilterTask.png)
-![](./documentation/FilterCompleted.png)
-![](./documentation/FilteringMultipleCritera.png)
-![](./documentation/MultipleCriteriaResults.png)
+Filtering the results
+![](./documentation/FilterTask.PNG)
+![](./documentation/FilterCompleted.PNG)
+![](./documentation/FilteringMultipleCritera.PNG)
+![](./documentation/MultipleCriteriaResults.PNG)
