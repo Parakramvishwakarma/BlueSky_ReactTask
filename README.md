@@ -34,3 +34,23 @@ API's Already Implemented
 - GET api/user/id/todos
 ### Mockups 
 ![](./documentation/mockups.png)
+
+### Images
+![](./documentation/TaskList.png)
+### Add new Task
+![](./documentation/NewTask.png)
+![](./documentation/AddNewTask.png)
+![](./documentation/NewTaskAdded.png)
+### Update Task
+![](./documentation/UpdateTask.png)
+![](./documentation/UpdatingTask.png)
+![](./documentation/FinishedUpdatingTask.png)
+![](./documentation/ToggleCompleted.png)
+### Delete Task
+![](./documentation/DeleteConfirmation.png)
+![](./documentation/TaskDeleted.png)
+### Filter Task
+![](./documentation/FilterTask.png)
+![](./documentation/FilterCompleted.png)
+![](./documentation/FilteringMultipleCritera.png)
+![](./documentation/MultipleCriteriaResults.png)
