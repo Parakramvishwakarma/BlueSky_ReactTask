@@ -36,25 +36,26 @@ API's Already Implemented
 ![](./documentation/mockups.png)
 
 ### Images
-Task List Retrieved from server.ts
+- Task List Retrieved from server.ts 
+
 ![](./documentation/TaskList.PNG)
 ### Add new Task
-Adding a new Task
+- Adding a new Task
 ![](./documentation/NewTask.PNG)
 ![](./documentation/AddNewTask.PNG)
 ![](./documentation/NewTaskAdded.PNG)
 ### Update Task
-updating a task
+- Updating a task
 ![](./documentation/UpdateTask.PNG)
 ![](./documentation/UpdatingTask.PNG)
 ![](./documentation/FinishedUpdatingTask.PNG)
 ![](./documentation/ToggleCompleted.PNG)
 ### Delete Task
-Deleteing a task
+- Deleteing a task
 ![](./documentation/DeleteConfirmation.PNG)
 ![](./documentation/TaskDeleted.PNG)
 ### Filter Task
-Filtering the results
+- Filtering the results
 ![](./documentation/FilterTask.PNG)
 ![](./documentation/FilterCompleted.PNG)
 ![](./documentation/FilteringMultipleCritera.PNG)
