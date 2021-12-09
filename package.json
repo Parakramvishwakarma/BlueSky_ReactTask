@@ -1,34 +1,40 @@
 {
-  "name": "react-test",
+  "name": "oml",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/lab": "^4.0.0-alpha.57",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.47",
-    "@types/react": "^16.9.41",
-    "@types/react-dom": "^16.9.8",
-    "axios": "^0.21.1",
-    "i": "^0.3.6",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-icons": "^4.2.0",
-    "react-scripts": "3.4.1",
-    "react-select": "^4.3.0",
-    "typescript": "^3.7.5"
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@testing-library/jest-dom": "^5.16.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.37",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "axios": "^0.24.0",
+    "faker": "^5.5.3",
+    "nstall": "^0.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.5.2",
+    "v8": "^0.1.0",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -43,9 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/faker": "^4.1.12",
-    "@types/react-select": "^4.0.13",
-    "faker": "^4.1.0",
-    "miragejs": "^0.1.40"
+    "@types/faker": "^5.5.9",
+    "miragejs": "^0.1.43"
   }
 }

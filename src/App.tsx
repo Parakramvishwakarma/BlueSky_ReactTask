@@ -1,192 +1,177 @@
 import React from "react";
-import Header from "./components/Header";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
-import UpdateTask from "./components/UpdateTask";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import FilterButton from "./components/FilterButton";
-import FilterForm from "./components/FilterForm";
-
-// Written By Jyle Darling
-// This Application is designed to be a todo list / task tracker using React and Typescript
-// The App was required to include functions to:
-// List Tasks
-// Filter tasks by name, user, is completed
-// Add Task
-// Edit Task
-// Delete Task
-// Global State (React Hooks and Context Providers)
+import TodoForm from "./Components/TodoForm";
+import TaskList from "./Components/TaskList";
+import UpdateForm from "./Components/UpdateForm";
+import FilterButton from "./Components/FilterButton";
+import FilterTask from "./Components/FilterTask";
+import Header from "./Components/Header";
 
 function App() {
-  // State Hooks
-  const [showAddTask, setShowAddTask] = useState(false); // Toggles Add Task Form
-  const [showFilter, setShowFilter] = useState(false); // Toggles Filter Results Form
-  const [showUpdateTask, setShowUpdateTask] = useState(false); // Toggles Update Task Form
-  const [taskToUpdate, setTaskToUpdate] = useState<any>(); // Holds single Task Info for Update Form
-  const [taskId, setTaskId] = useState<any>(); // Contains a single Task Id info
-  const [tasks, setTasks] = useState<any>([]); // Contains Task List Info from Fetch and Changes
-  const [filteredTasks, setFilteredTasks] = useState<any>([]); // Contains Pre Filtered Task List Info
-  const [users, setUsers] = useState<any>([]); // Contains User List Info from Fetch
+  // Hooks
+  const [tasks, setTasks] = useState<todo[]>([]); 
+  const [users, setUsers] = useState<user[]>([]);
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
+  const [taskToUpdate, setUpdateTask] = useState<any>()
+  const [PreFilterTasks, setPrefilterTasks] = useState<todo[]>([]);
+  const [filterTrigger, setFilterTrigger] = useState<boolean>(false);
+  const [filterClose, setFilterClose] = useState<boolean>(true);
+  const [addTaskTrigger, setAddTaskTrigger] = useState<boolean>(false);
 
-  // Fetche / Sets User and ToDo Lists from server.ts using axios
+  // Function to fetch the tasks and users from the api using axios and setting the user and tasks arrays
   const getTasksAndUsers = async () => {
     try {
       const fetchUsers = await axios.get("api/users");
       setUsers(fetchUsers.data.users);
       const fetchTasks = await axios.get("api/todos");
       setTasks(fetchTasks.data.todos);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err.message);
     }
   };
 
-  // Side Effect That Calls the Fetch Method
+// hook to load in the users and tasks from the databse at the intial render of the page
   useEffect(() => {
     getTasksAndUsers();
-  }, []);
+  },[]);
 
-  // Add Task Method
-  const addTask = (task: any) => {
-    setTasks([...tasks, task]);
-  };
-
-  // Delete Task Method
-  const deleteTask = (id: number) => {
-    setTasks(tasks.filter((task: any) => task.id !== id));
-  };
-
-  // Get Task ID Method
-  const getId = (task: any) => {
-    setTaskId(task.id);
-  };
-
-  // Method to Return an Array Index from a Given Array, Attribute and Value
-  function findWithAttr(array: any, attr: any, value: any) {
-    for (let i = 0; i < array.length; i += 1) {
-      if (array[i][attr] === value) {
-        return i;
-      }
-    }
-    return -1;
+  //function to change the boolean value needed to show the add task popup
+  const toggleAddTask: toggleAddTaskTrigger = (addTaskShow) => {
+    setAddTaskTrigger(addTaskShow)
   }
 
-  // Update Task Method
-  const updateTask = (task: any) => {
-    task.id = taskId;
-
-    const index = findWithAttr(tasks, "id", task.id);
-
-    if (index !== -1) {
-      tasks[index] = task;
-    }
-
-    setTasks(tasks);
+  //function to add a task into the array
+  const addTask= (todo: todo) :void => {
+    setTasks([todo, ...tasks]); // adds the new task at the start of the tasks array
+    setPrefilterTasks(tasks)
+  } 
+  // function to delete a task from the tasks array
+  const deleteTask = (id: string) => {
+    setTasks(tasks.filter((task: any) => task.id !== id));
+    setPrefilterTasks(tasks)
   };
 
-  // Toggle Task Completed Method
-  const toggleComplete = (id: string) => {
+  // fuinction to mark a task as complete if used 
+  const toggleComplete: ToggleComplete = (id) => {
     setTasks(
       tasks.map((task: any) =>
         task.id === id ? { ...task, isComplete: !task.isComplete } : task
       )
     );
+    setPrefilterTasks(tasks)
   };
 
-  // Filter Results Method
-  const filterResults = (task: any) => {
-    setFilteredTasks(tasks);
+  //function to open/close the update tab
+  const toggleShowUpdate: toggleShowUpdate = (show) => {
+    setShowUpdate(show);
+  }
 
-    // Assigns Tasks to a Temp Array,
-    // and Filter Task Form Details to Variables for Searching
-    let tempFilter = tasks;
-    const isComplete = task.isComplete;
-    const name = task.name.toLowerCase();
-    const user = task.user;
+  // function to open or close the filter popup
+  const toggleFilterTrigger: toggleFilterTrigger = (trigger) => {
+    setFilterTrigger(trigger);
+  }
 
-    // Filters Tasks based on IsComplete boolean
-    tempFilter = tempFilter.filter(
-      (task: any) => task.isComplete === isComplete
-    );
-
-    // Filters Tasks if name is Truthy and Tasks Contain name
-    if (name) {
-      tempFilter = tempFilter.filter((task: any) =>
-        task.name.toLowerCase().includes(name)
-      );
+// function to find a task by its id to assist in updating tasks gives index in the array -1 if its not in the array
+  const findTask: findTask = (tasks, taskId) => {
+    for(let i = 0; i < tasks.length; i ++) {
+      if(tasks[i].id === taskId){
+        return i
+      }
     }
+    return -1;
+  }
 
-    // Filters Tasks if user is Truthy and Tasks match user
-    if (user) {
-      tempFilter = tempFilter.filter((task: any) => task.user === user);
+  // function toupdate the task that was updated by the user in the tasks array
+  const updateTask: updateTasks = (task) => {
+    const index = findTask(tasks, task.id);
+    if(index !== -1){
+      tasks[index] = task;
     }
+    setTasks(tasks)
+    setPrefilterTasks(tasks);
+  }
 
-    setTasks(tempFilter);
-  };
+  // function to set what task is being updated
+  const updateTaskSet = (task: todo) => {
+    setUpdateTask(task);
+  }
 
-  // Reset Filter Method
-  const resetFilter = () => {
-    if (filteredTasks.length) {
-      setTasks(filteredTasks);
+  const filterTasks: filterTasks = (task) =>{
+    //defone the array that will is the original tasks
+    setPrefilterTasks(tasks);
+    setFilterClose(false); // the filter tab us not allowed to be closed until the filter close boolean is true
+    let tempTasks = tasks;
+    const filterName = task.name.toLowerCase();
+    const filterUserId = task.user;
+    const filterIsComplete = task.isComplete
+    //fitler in terms of is complete 
+    tempTasks = tempTasks.filter( (task: todo) => task.isComplete === filterIsComplete);
+    //filter in terms of the user 
+    if (filterUserId){
+      tempTasks = tempTasks.filter( (task:todo) => task.user === filterUserId);
     }
-  };
+    //checks if the name provided is existing and then filters on the basis of that
+    if(filterName) {
+      tempTasks = tempTasks.filter((task:todo) => (task.name.toLowerCase()).includes(filterName));
+    }
+    setTasks(tempTasks); // the filtered tasks are then set to be the main tasks so that they can be displayed
+  }
+  const filterReset: fitlerReset = () => {
+    setTasks(PreFilterTasks); // the tasks are reverted back to the tasks array without any filter
+    setFilterClose(true); // the filter is allowed to be closed after the fitler has been reset
+  }
 
+  
   return (
-    <div className="container">
-      <Header
-        onAdd={() => {
-          !showUpdateTask
-            ? setShowAddTask(!showAddTask)
-            : alert("Please Close Update Task Form");
-        }}
-        showAdd={showAddTask}
-      />
-      {showAddTask && !showUpdateTask && (
-        <AddTask onAdd={addTask} userList={users} taskList={tasks} />
-      )}
-      {showUpdateTask && !showAddTask && (
-        <UpdateTask
-          onUpdate={updateTask}
-          list={users}
-          taskId={taskId}
-          taskToUpdate={taskToUpdate}
-          showUpdate={() =>
-            showUpdateTask ? setShowUpdateTask(!showUpdateTask) : showUpdateTask
-          }
-        />
-      )}
-      <FilterButton
-        showFilterBar={showFilter}
-        onFilter={() => {
-          setShowFilter(!showFilter);
-        }}
-      />
-      {showFilter && (
-        <FilterForm
-          onFilter={filterResults}
-          userList={users}
-          resetFilter={resetFilter}
-        />
-      )}
-      {tasks.length > 0 ? (
-        <Tasks
-          tasks={tasks}
-          users={users}
-          onDelete={deleteTask}
-          onToggle={toggleComplete}
-          getId={getId}
-          getTask={setTaskToUpdate}
-          showUpdate={() => {
-            !showAddTask
-              ? setShowUpdateTask(!showUpdateTask)
-              : alert("Please Close New Task Form");
-          }}
-        />
-      ) : (
-        "No Tasks To Display"
-      )}
+    <div className="parent">
+      <Header />
+      <div className = "ToDoAppForm">
+        < TodoForm 
+        addTask= {addTask} 
+        tasks = {tasks} 
+        users = {users} 
+        addTaskTrigger = {addTaskTrigger} 
+        toggleAddTaskTrigger = {toggleAddTask}/>
+      </div>
+
+      <div className="filterButton">  
+        <FilterButton
+         toggleFilterTrigger= {toggleFilterTrigger}
+          toggleAddTaskTrigger= {toggleAddTask}/>
+      </div>
+
+      <div className="taskList">
+        <TaskList 
+        users= {users} 
+        tasks = {tasks} 
+        deleteTask = {deleteTask} 
+        toggleComplete= {toggleComplete} 
+        updateTaskSet={updateTaskSet} 
+        toggleShowUpdate= {toggleShowUpdate}/>
+      </div>
+
+      <div className="pop-up">
+        <UpdateForm 
+        users= {users} 
+        task = {taskToUpdate} 
+        toggleShowUpdate = {toggleShowUpdate} 
+        trigger= {showUpdate} 
+        updateTasks={updateTask}/>
+      </div>
+
+      <div className="filter-popup">
+        <FilterTask  
+        users= {users}
+        filterTasks={filterTasks}
+        filterReset={filterReset} 
+        filterTrigger= {filterTrigger} 
+        toggleFilterTrigger={toggleFilterTrigger}
+        filterClose = {filterClose}/>
+      </div>
     </div>
-  );
+
+  )
 }
 
 export default App;

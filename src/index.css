@@ -10,27 +10,12 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
-}
-
 .filter {
   display: flex;
   justify-content: flex-end;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
+
 
 .btn {
   display: inline-block;
@@ -65,56 +50,15 @@ body {
   display: inline-block;
 }
 
-.task {
-  background: #f4f4f4;
-  margin: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
 
-.task.completed {
-  background-color: rgb(177, 243, 177);
-}
-
-.task h3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.icon-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-span {
-  width: 22px;
-}
 
 .update-form {
   margin-bottom: 20px;
 }
-
-.update-form-control {
-  margin: 10px 0;
+.filter-form {
+  margin-bottom: 20px;
 }
 
-.update-form-control label {
-  display: block;
-}
-
-.update-form-control input {
-  width: 100%;
-  height: 30px;
-  margin: 5px;
-  padding: 3px 7px;
-  font-size: 14px;
-}
-
-.add-form {
-  margin-bottom: 40px;
-}
 
 .form-control {
   margin: 20px 0;
@@ -122,10 +66,9 @@ span {
 }
 
 .form-control label {
-  display: block;
-
-  width: 100%;
+  width: 170%;
 }
+
 
 .form-control-check {
   display: flex;
@@ -140,4 +83,46 @@ span {
 .form-control-check input {
   flex: 2;
   height: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30.5%;
+  height: 100vh;
+  background-color: rgba(233, 112, 112, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.popup-inner {
+  position:fixed ;
+  padding: 10px;
+  width: 120%;
+  max-width: 640px;
+  background-color: #FFF;
+}
+
+.filterForm {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30.5%;
+  height: 100vh;
+  background-color: rgba(233, 112, 112, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.filterForm-inner {
+  position:fixed ;
+  padding: 10px;
+  width: 200%;
+  max-width: 1000px;
+  background-color: #FFF;
 }
